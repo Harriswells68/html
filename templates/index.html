@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!----======== CSS ======== -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
      
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
@@ -28,10 +28,10 @@
     </div>
     </div>
     <script>
-        const questionData = {{question|tojson}};
-        console.log(questionData);
-        document.getElementById('question').textContent = questionData.q;
+        const q1 = {{q1|tojson}};
+        console.log(q1);
+        document.getElementById('question').textContent = q1[1];
     </script>
-    <script src="{{ url_for('static', filename='js/firstjava.js') }}"></script>
+    <script src="{{ url_for('static', filename='firstjava.js') }}"></script>
 </body>
 </html>
