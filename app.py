@@ -238,7 +238,7 @@ def designs(name, ptopic):
             pn=i
         if i in [0, 1, 3]:
             if i==0:
-     jus           data["Lines"][0]["Segments"][0]["Value"]=ptopic.upper()
+                data["Lines"][0]["Segments"][0]["Value"]=ptopic.upper()
             elif i==1 or i==3:
                 data["Lines"][0]["Segments"][0]["Value"]=name.upper()
         if i==2:
