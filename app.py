@@ -62,9 +62,9 @@ coverpagen={
   "TopMargin": 0,
   "BottomMargin": 0,
   "Rectangle": {
-    "LLX": 235,
+    "LLX": 255,
     "LLY": 219,
-    "URX": 560,
+    "URX": 490,
     "URY": 366
   },
   "Rotation": 0,
