@@ -4,8 +4,8 @@ import requests
 import math
 
 idn=0
-skeys=['0646ee1ae11fddac4152a4d58aae97c6', 'd1f45e836c53f961c43126869c877332', '60c0c520be44a5752af2e25079cebd84', '7e851e8ef8ac3e2c875345105442bf54', 'cf2c98accb2e6dce7922c545d8fcd901']
-ids=['1e051fd3-9dc4-49bf-9007-432ef1dc1dfe', 'ba102dcc-a9d4-4328-85ab-bd624b097943', '607927a0-565d-4aa9-a25b-539ee8d8dc35', '08419b96-1f3f-4709-8ae7-74822a88b9dc', '22a45393-614b-436f-8361-8c9976bb43f2']
+skeys=['d1f45e836c53f961c43126869c877332', '60c0c520be44a5752af2e25079cebd84', '7e851e8ef8ac3e2c875345105442bf54', 'cf2c98accb2e6dce7922c545d8fcd901', '0245776c0f7833a4a505b6f7c4918a9b', 'f9efba5f25cc46b2a3249bcb8824a6fb']
+ids=['ba102dcc-a9d4-4328-85ab-bd624b097943', '607927a0-565d-4aa9-a25b-539ee8d8dc35', '08419b96-1f3f-4709-8ae7-74822a88b9dc', '22a45393-614b-436f-8361-8c9976bb43f2', 'd5eba395-0dd9-411b-8007-a4ac2a6c8265', '000a012f-607f-49c2-9e11-ee0cdd0860ef']
 
 coverpaget={
   "LineSpacing": "FullSize",
@@ -62,10 +62,10 @@ coverpagen={
   "TopMargin": 0,
   "BottomMargin": 0,
   "Rectangle": {
-    "LLX": 235,
-    "LLY": 219,
-    "URX": 560,
-    "URY": 366
+    "LLX": 295,
+    "LLY": 198,
+    "URX": 530,
+    "URY": 348
   },
   "Rotation": 0,
   "SubsequentLinesIndent": 0,
@@ -155,8 +155,8 @@ ackn={
   "TopMargin": 0,
   "BottomMargin": 0,
   "Rectangle": {
-    "LLX": 378,
-    "LLY": 280,
+    "LLX": 368,
+    "LLY": 265,
     "URX": 540,
     "URY": 300
   },
@@ -244,7 +244,7 @@ def designs(name, ptopic):
               elif i==1:
                 data["Lines"][0]["Segments"][0]["Value"]=name.upper()
               elif i==3:
-                  data["Lines"][0]["Segments"][0]["Value"]=name.title()
+                  data["Lines"][0]["Segments"][0]["Value"]=name.upper()
           if i==2:
               stra=checker(name, topic, radio)
               data["Lines"][0]["Segments"][0]["Value"]=stra
