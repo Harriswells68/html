@@ -45,7 +45,6 @@ csrfc = re.get("https://forum.aspose.com/session/csrf", headers=headers)
 
 if csrfc.status_code==200:
     csrf=csrfc.json()['csrf']
-    print(csrf)
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0',
@@ -70,6 +69,6 @@ data = {
 
 ocid = re.post('https://forum.aspose.com/auth/oidc', headers=headers, data=data)
 
-print(ocid.status_code)
+print(ocid.headers)
 if ocid.status_code==302:
     print(ocid.is_permanent_redirect)
