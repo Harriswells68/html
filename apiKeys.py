@@ -71,4 +71,4 @@ data = {
 ocid = re.post('https://forum.aspose.com/auth/oidc', headers=headers, data=data)
 
 if ocid.status_code==200:
-    print(ocid.)
+    print(ocid)
