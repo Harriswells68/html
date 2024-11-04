@@ -45,23 +45,14 @@ csrfc = re.get("https://forum.aspose.com/session/csrf", headers=headers)
 
 if csrfc.status_code==200:
     csrf=csrfc.json()['csrf']
+    print(csrf)
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.5',
     'Referer': 'https://forum.aspose.com/latest',
     'Content-Type': 'application/x-www-form-urlencoded',
     'Origin': 'https://forum.aspose.com',
-    'DNT': '1',
-    'Sec-GPC': '1',
-    'Connection': 'keep-alive',
-    'Upgrade-Insecure-Requests': '1',
-    'Sec-Fetch-Dest': 'document',
-    'Sec-Fetch-Mode': 'navigate',
-    'Sec-Fetch-Site': 'same-origin',
-    'Sec-Fetch-User': '?1',
-    'Priority': 'u=0, i',
 }
 
 data = {
@@ -69,6 +60,6 @@ data = {
 }
 
 ocid = re.post('https://forum.aspose.com/auth/oidc', headers=headers, data=data)
-
-if ocid.status_code==200:
-    print(ocid)
+print(ocid.status_code)
+if ocid.status_code==302:
+    print(ocid.is_permanent_redirect)
