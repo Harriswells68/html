@@ -16,10 +16,6 @@ cs = ['22ba986cc956b6b4fd2b75b818c5c83f', 'ae9b39c64b73e72ab8d7dad8b036213a', '9
 
 import os
 
-filesk = [f for f in os.listdir('.') if os.path.isfile(f)]
-for f in filesk:
-    print(f)
-
 def checkOverflow(name, topic=None):
     name = name.upper()
 
@@ -445,8 +441,8 @@ def designs(subject, name, cls, sec, pron, topic):
             b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
 
     except Exception as e:
-        print("Exception2", e)
-        l1.error("AN ERROR OCCURED! Please contact Sujal")
+        l1.errkr("proble", e)
+        #l1.error("AN ERROR OCCURED! Please contact Sujal")
 
 
 st.title("Certificate Generator")
@@ -479,9 +475,11 @@ if sub == "English":
     topic.empty()
 
 if len(inp) > 60:
-    w1.warning(
-        "Your topic is way too big!😢 Please make it shorter else there will be layout problems")
+    w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
 
+filesk = [f for f in os.listdir('.') if os.path.isfile(f)]
+l1.write(filesk)
+    
 if c1:
     b1.empty()
     l1.success("Processing Please Wait")
