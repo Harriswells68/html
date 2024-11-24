@@ -7,14 +7,11 @@ import math
 import os
 
 idn = 0
-mdir=False
 
-if mdir==False:
-    try:
-        os.mkdir("pdfs")
-        mdir=True
-    except FileExistsError:
-        print("dir exist")
+try:
+    os.mkdir("pdfs")
+except FileExistsError:
+    pass
 
 with open(r"cur.dat", "rb") as fp:
     d = pickle.load(fp)
