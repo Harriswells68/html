@@ -11,7 +11,7 @@ mdir=False
 
 if mdir==False:
     try:
-        os.mkdir(directory_name)
+        os.mkdir("pdfs")
         mdir=True
     except FileExistsError:
         print("dir exist")
