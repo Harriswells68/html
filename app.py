@@ -313,7 +313,7 @@ def genTuple(subject, name, cls, sec, pron, topic):
             }
             topicconfig["Rectangle"] = {
                 "LLX": 30,
-                "LLY": 250,
+                "LLY": 260,
                 "URX": 566,
                 "URY": 370
             }
