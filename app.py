@@ -9,9 +9,12 @@ import os
 idn = 0
 mdir=False
 
-if not mdir:
-    os.mkdir("pdfs")
-    mdir=True
+if mdir==False:
+    try:
+        os.mkdir(directory_name)
+        mdir=True
+    except FileExistsError:
+        print("dir exist")
 
 with open(r"cur.dat", "rb") as fp:
     d = pickle.load(fp)
