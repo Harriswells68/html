@@ -298,7 +298,7 @@ def genTuple(subject, name, cls, sec, pron, topic):
             topicconfig["Lines"][0]["Segments"][0]["Value"] = r[1][0]+'\n'+r[1][1]
             topicconfig["Rectangle"] = {
                 "LLX": 30,
-                "LLY": 260,
+                "LLY": 265,
                 "URX": 566,
                 "URY": 360
             }
@@ -313,7 +313,7 @@ def genTuple(subject, name, cls, sec, pron, topic):
             }
             topicconfig["Rectangle"] = {
                 "LLX": 30,
-                "LLY": 260,
+                "LLY": 265,
                 "URX": 566,
                 "URY": 370
             }
@@ -445,8 +445,8 @@ def designs(subject, name, cls, sec, pron, topic):
             b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
 
     except Exception as e:
-        l1.error("proble", e)
-        #l1.error("AN ERROR OCCURED! Please contact Sujal")
+        #l1.error("proble", e)
+        l1.error("AN ERROR OCCURED! Please contact Sujal")
 
 
 st.title("Certificate Generator")
