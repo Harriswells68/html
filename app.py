@@ -448,8 +448,8 @@ def designs(subject, name, cls, sec, pron, topic):
             b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
 
     except Exception as e:
-        l1.error("proble", e)
-        #l1.error("AN ERROR OCCURED! Please contact Sujal")
+        #l1.error("proble", e)
+        l1.error("AN ERROR OCCURED! Please contact Sujal")
 
 
 st.title("Certificate Generator")
@@ -483,9 +483,6 @@ if sub == "English":
 
 if len(inp) > 60:
     w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
-
-filesk = os.listdir(os.curdir)
-l1.write(filesk)
     
 if c1:
     b1.empty()
