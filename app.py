@@ -452,37 +452,39 @@ def designs(subject, name, cls, sec, pron, topic):
 st.title("Certificate Generator")
 st.caption("By Sujal❤️")
 
-name = st.text_input("Enter Your Name")
+h=st.header("UNDER SOME WORK PLEASE VIST AFTRR SOME TIME")
 
-col1, col2, col3 = st.columns(3)
+#name = st.text_input("Enter Your Name")
 
-sub = col1.selectbox("Select the subject", [
-                     "English", "Chemistry", "Physics", "Biology"])
-cls = col2.selectbox("Select the class", ["IX", "X", "XI", "XII"])
-sec = col3.selectbox("Select the section", ["A", "B", "C", "D"])
+#col1, col2, col3 = st.columns(3)
 
-topic = st.empty()
-inp = topic.text_input("Enter your topic")
+#sub = col1.selectbox("Select the subject", [
+#                     "English", "Chemistry", "Physics", "Biology"])
+#cls = col2.selectbox("Select the class", ["IX", "X", "XI", "XII"])
+#sec = col3.selectbox("Select the section", ["A", "B", "C", "D"])
 
-w1 = st.empty()
+#topic = st.empty()
+#inp = topic.text_input("Enter your topic")
 
-radio = st.radio("Your Pronouns", ['He/his', 'She/her'])
+#w1 = st.empty()
 
-b1 = st.empty()
-c1 = b1.button("Done")
+#radio = st.radio("Your Pronouns", ['He/his', 'She/her'])
 
-l1 = st.empty()
+#b1 = st.empty()
+#c1 = b1.button("Done")
 
-st.caption('If you got any errors please contact me:)')
+#l1 = st.empty()
 
-if sub == "English":
-    topic.empty()
+#st.caption('If you got any errors please contact me:)')
 
-if len(inp) > 60:
-    w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
+#if sub == "English":
+#    topic.empty()
+
+#if len(inp) > 60:
+#    w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
     
-if c1:
-    b1.empty()
+#if c1:
+#    b1.empty()
     l1.success("Processing Please Wait")
     if sub == "English":
         designs(sub, name, cls, sec, radio,
