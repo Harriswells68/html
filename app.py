@@ -445,8 +445,8 @@ def designs(subject, name, cls, sec, pron, topic):
             b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
 
     except Exception as e:
-        print("Exception 2", e)
-        l1.error("AN ERROR OCCURED! Please contact Sujal")
+        l1.error(f"Exception 2 {e}")
+        #l1.error("AN ERROR OCCURED! Please contact Sujal")
 
 
 st.title("Certificate Generator")
