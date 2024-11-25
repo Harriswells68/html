@@ -485,9 +485,9 @@ h=st.header("UNDER SOME WORK PLEASE VIST AFTRR SOME TIME")
     
 #if c1:
 #    b1.empty()
-    l1.success("Processing Please Wait")
-    if sub == "English":
-        designs(sub, name, cls, sec, radio,
-                "LOST SPRING :- REFLECTION OF CHILD LABOUR IN INDIA")
-    else:
-        designs(sub, name, cls, sec, radio, inp)
+#    l1.success("Processing Please Wait")
+#    if sub == "English":
+#        designs(sub, name, cls, sec, radio,
+#                "LOST SPRING :- REFLECTION OF CHILD LABOUR IN INDIA")
+#    else:
+#        designs(sub, name, cls, sec, radio, inp)
