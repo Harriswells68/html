@@ -17,8 +17,8 @@ with open(r"cur.dat", "rb") as fp:
     d = pickle.load(fp)
     idn = d["idn"]
 
-ci = ['f00ee90c-844e-429b-b0d8-e83b6b0f8485', '5942cc6e-8a9a-43e1-b08b-b6086b662d3e', 'a0b2bbc8-7bbc-4ff6-8297-bcf0274a59f7', 'acc0a85d-1da2-4e81-952f-1733aba6f6da', '31fd9e38-da94-4abe-9bd3-be994f2f3eb1', '73f05917-83b4-47ea-9f8e-b52cdc369f75', '3ca53c5f-7e04-4b30-9771-1f4c56e1486d', 'a34b103f-51bc-4dd0-a4af-f2ad389c6f5c', '2b7cb818-2538-4290-b3d4-c58ee7e6c207', 'd6f78a8a-5b71-43d9-98d0-39cddb82e2a2', 'e4f92bf6-13a8-4b16-9538-fe5bd19d137f', '82865ebc-5315-4b1b-a716-8bb1d0b1fdce', '55f26a6b-3e1b-4bcf-a9c1-2147e6884200', '48091455-2ab2-42db-ade6-6b628cf992f1', '25df754a-b4c7-4836-b188-7ff8c0a6f58c', '8e07c94a-843d-4050-95f7-ff83bcc1c891', 'f3c3b3cc-a44e-4f37-bc38-25cf1de6c15a', '31d15410-d02c-4184-aa1c-76535d38b6b4', 'f15908a9-ff66-453e-81d0-a7cc8c63c039']
-cs = ['22ba986cc956b6b4fd2b75b818c5c83f', 'ae9b39c64b73e72ab8d7dad8b036213a', '9325c76d2e4335071c97219bc105181a', '54a726f034e76edbfc5748d2548eab8c', '33b434f56b041bf6a8276af805bb73bb', '87fbdf770caf7daf439e824c17bfd3a7', '3115daff089a9c33dcab910eca19a86b', '848ec34b02ee0fa40fd77a74ebcc9c73', 'c5c4c907263cb1ff79062d20dc99c5a0', '38591d60eb8e7c407c610c82a87f4d10', 'a6feb8e0782e5f7fb0fc2da57940312e', '6f083c1a83f5b3ca0c5eab2df95929a9', '5292223022389d951eafb09245ca3c3a', 'bc55be74d4ed10440e2f93fc768719e4', '8fbdf6c7cdbb32fe32e57409f708198b', 'c460ca6b13694b4c6569adacc3ca12d0', '642a08be16e482424f91e7cc988a9b9c', '63850efcb987e0c11c2b8064d5b87b49', 'cca5cfc06ecf9f598e8320b0971dee3d']
+ci = ['b439e6c2-4439-4419-9ac4-07afc94f583c', '431d4059-622e-4545-8058-2de6a143dab5', '4519794d-e1a6-438b-8ac1-cf3047ab50b9', 'e2d2bcd5-cc64-48a5-abc4-f4fc220a4fa6', '3b481882-ba10-4eef-a1b8-c51f3c759385', '2ebcaf4c-88e1-4466-b1d3-e4da35774c42', 'fffeada1-5767-4b64-af9b-6aaca5673c7a', '8225b6b0-c9a9-4bb3-baa4-3d85f9b4b525', '327c8776-ae6a-4f51-88d1-8576870120d5', '2613ee6d-751f-4e0b-bc78-ec2ef50c9111', 'ee8c88d7-173f-41c3-962b-2bde8bc4b780', '2484bd09-0f7f-491c-842a-bef50c0931a9', '599f783b-4356-46d6-abbc-99d4a0d897e7', 'fc394665-09ba-4e7b-aaa6-3a144b22ee98', '76a3273a-23b1-4e9b-8598-baae0d311659', '57b939ad-11a5-45a2-ba9e-5979a4e92c87', '1d42082e-cd25-4feb-8825-59d8c4e167bb', '5b6fc3c8-14c7-4a61-83fd-ffe44c70bd90', 'b2bc4c41-a738-44cc-b2c6-0842b5c1712c', 'a3a25445-e964-4698-bab5-7aa83845125f']
+cs = ['43b39ddd5c01b95768aaaa2f605ee537', '56c17d9601ba521b3359bee30d3eada9', '4cb7c73cdd1a0912fa3fe920964c7886', '7c7a3dac8fb871a8c752caa5b49020a3', '99311c55b72bc66683c5f227bc0cfc4d', 'd9bb6fcc883c5e99518f1e3ada7e1342', '75fb4e07b4e9d6dff294610481022fcd', 'f1e84547ba8bb50f0e3f2a76be6b955a', '6b0745c198c8fbe9865b60c1f931ba41', 'b55d089a07f08cab35e8686a2883c292', 'f4949f34bbdd63a98889f9df126ba852', '4a3c8c1481d977acc430a8247b0e1a2f', 'c5a36032351a69064283e166131f9583', '23678f67fc7a63face9897b5a85e213e', 'ebfcf8884868da3fc3a20de3cb366cdb', 'd0ae3b534c6c0c8edd7b58e7b10dfd18', '7a6625c30510fb9df26c04dfdb0f3b04', 'ec640962a9f3ea2bf3c1a4955a754483', '7f2e21175bf5b7410beb816ac505c596', 'f37f1f5c01699357c7d1e808a295322f']
 
 def checkOverflow(name, topic=None):
     name = name.upper()
@@ -275,6 +275,11 @@ def genTuple(subject, name, cls, sec, pron, topic):
             certconfig["Lines"][0]["Segments"][0]["Value"] = f'This is to certify that\n\n{r[0][0]+" "+r[0][1]}\n\nhas satisfactorily carried out his {subject} Project on\n\n“{r[1][0]}\n\n{r[1][1]}”\n\nThe candidate himself did all the work under my supervision. His\n\n approach towards the subject and this project is sincere.'
         if pron == 'She/her' and r[2] and r[4]:
             certconfig["Lines"][0]["Segments"][0]["Value"] = f'This is to certify that\n\n{r[0][0]+" "+r[0][1]}\n\nhas satisfactorily carried out his {subject} Project on\n\n“{r[1][0]}\n\n{r[1][1]}”\n\nThe candidate herself did all the work under my supervision. Her\n\n approach towards the subject and this project is sincere.'
+        if pron == "He/his" and subject=="English":
+            certconfig["Lines"][0]["Segments"][0]["Value"] = f'This is to certify that\n\n{r[0]}\n\nhas satisfactorily carried out his {subject} Project on\n\n“{topic.upper()}”\n\nThe candidate himself did all the work under my supervision. His\n\n approach towards the subject and this project is sincere.'
+        if pron == "She/her" and subject=="English":
+            certconfig["Lines"][0]["Segments"][0]["Value"] = f'This is to certify that\n\n{r[0]}\n\nhas satisfactorily carried out her {subject} Project on\n\n“{topic.upper()}”\n\nThe candidate herself did all the work under my supervision. Her\n\n approach towards the subject and this project is sincere.'
+
 
         if r[2]:
             nameconfig["Lines"][0]["Segments"][0]["Value"] = r[0][0] + \
@@ -303,7 +308,7 @@ def genTuple(subject, name, cls, sec, pron, topic):
                 "URY": 360
             }
 
-        if r[4]:
+        if r[4] and subject!="English":
             topicconfig["Lines"][0]["Segments"][0]["Value"] = topic.upper()
             certconfig["Rectangle"] = {
                 "LLX": 15,
@@ -445,8 +450,8 @@ def designs(subject, name, cls, sec, pron, topic):
             b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
 
     except Exception as e:
-        l1.error(f"Exception 2 {e}")
-        #l1.error("AN ERROR OCCURED! Please contact Sujal")
+        os.write(1, f"Exception 2 {e}".encode())
+        l1.error("AN ERROR OCCURED! Please contact Sujal")
 
 
 st.title("Certificate Generator")
@@ -478,9 +483,8 @@ l1 = st.empty()
 st.caption('If you got any errors please contact me:)')
 
 if sub == "English":
-    b1.empty()
     topic.empty()
-    w1.warning("The English pdf will be available after 5pm today because of some ongoing change")
+    #w1.warning("The English pdf will be available after 5pm today because of some ongoing change")
 
 if len(inp) > 60:
     w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
