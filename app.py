@@ -450,7 +450,7 @@ def designs(subject, name, cls, sec, pron, topic):
             b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
 
     except Exception as e:
-        #os.write(1, f"Exception 2 {e}".encode())
+        os.write(1, f"Exception 2 {e}".encode())
         l1.error("AN ERROR OCCURED! Please contact Sujal")
 
 
