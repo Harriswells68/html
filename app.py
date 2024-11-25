@@ -459,7 +459,7 @@ name = st.text_input("Enter Your Name")
 col1, col2, col3 = st.columns(3)
 
 sub = col1.selectbox("Select the subject", [
-                     "English", "Chemistry", "Physics", "Biology"])
+                     "Chemistry", "English", "Physics", "Biology"])
 cls = col2.selectbox("Select the class", ["IX", "X", "XI", "XII"])
 sec = col3.selectbox("Select the section", ["A", "B", "C", "D"])
 
@@ -480,7 +480,7 @@ st.caption('If you got any errors please contact me:)')
 if sub == "English":
     b1.empty()
     topic.empty()
-    w1.warning("The English pdf will be available after 5pm today becauseof some ongoing change")
+    w1.warning("The English pdf will be available after 5pm today because of some ongoing change")
 
 if len(inp) > 60:
     w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
