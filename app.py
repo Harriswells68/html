@@ -452,42 +452,44 @@ def designs(subject, name, cls, sec, pron, topic):
 st.title("Certificate Generator")
 st.caption("By Sujal❤️")
 
-h=st.header("UNDER SOME WORK PLEASE VIST AFTRR SOME TIME")
+#h=st.header("UNDER SOME WORK PLEASE VIST AFTRR SOME TIME")
 
-#name = st.text_input("Enter Your Name")
+name = st.text_input("Enter Your Name")
 
-#col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns(3)
 
-#sub = col1.selectbox("Select the subject", [
-#                     "English", "Chemistry", "Physics", "Biology"])
-#cls = col2.selectbox("Select the class", ["IX", "X", "XI", "XII"])
-#sec = col3.selectbox("Select the section", ["A", "B", "C", "D"])
+sub = col1.selectbox("Select the subject", [
+                     "English", "Chemistry", "Physics", "Biology"])
+cls = col2.selectbox("Select the class", ["IX", "X", "XI", "XII"])
+sec = col3.selectbox("Select the section", ["A", "B", "C", "D"])
 
-#topic = st.empty()
-#inp = topic.text_input("Enter your topic")
+topic = st.empty()
+inp = topic.text_input("Enter your topic")
 
-#w1 = st.empty()
+w1 = st.empty()
 
-#radio = st.radio("Your Pronouns", ['He/his', 'She/her'])
+radio = st.radio("Your Pronouns", ['He/his', 'She/her'])
 
-#b1 = st.empty()
-#c1 = b1.button("Done")
+b1 = st.empty()
+c1 = b1.button("Done")
 
-#l1 = st.empty()
+l1 = st.empty()
 
-#st.caption('If you got any errors please contact me:)')
+st.caption('If you got any errors please contact me:)')
 
-#if sub == "English":
-#    topic.empty()
+if sub == "English":
+    b1.empty()
+    topic.empty()
+    w1.warning("The English pdf will be available after 5pm today becauseof some ongoing change")
 
-#if len(inp) > 60:
-#    w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
+if len(inp) > 60:
+    w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
     
-#if c1:
-#    b1.empty()
-#    l1.success("Processing Please Wait")
-#    if sub == "English":
-#        designs(sub, name, cls, sec, radio,
-#                "LOST SPRING :- REFLECTION OF CHILD LABOUR IN INDIA")
-#    else:
-#        designs(sub, name, cls, sec, radio, inp)
+if c1:
+    b1.empty()
+    l1.success("Processing Please Wait")
+    if sub == "English":
+        designs(sub, name, cls, sec, radio,
+                "LOST SPRING :- REFLECTION OF CHILD LABOUR IN INDIA")
+    else:
+        designs(sub, name, cls, sec, radio, inp)
