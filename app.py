@@ -332,62 +332,64 @@ def genTuple(subject, name, cls, sec, pron, topic):
 
 
 def designs(subject, name, cls, sec, pron, topic):
-    global idn, b1, l1
+    global idn, b1, l1, w1
 
-    try:
-        datak = genTuple(subject, name, cls, sec, pron, topic)
+    if name!="":
 
-        n = ((name.replace(' ', '')).lower()+subject.lower())
+        try:
+            datak = genTuple(subject, name, cls, sec, pron, topic)
 
-        indexEr = False
+            n = ((name.replace(' ', '')).lower()+subject.lower())
 
-        while True:
-            try:
-                url = "https://api.aspose.cloud/connect/token"
-                data = {
-                    "grant_type": "client_credentials",
-                    "client_id": ci[idn],
-                    "client_secret": cs[idn]
-                }
-                headers = {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "Accept": "application/json"
-                }
-                response = requests.post(
-                    url, data=data, headers=headers, timeout=30)
-                token = response.json()
-                tk = token['access_token']
+            indexEr = False
+            downpdf = True
 
-                if subject == "English" and n!="":
-                    url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/copy/english.pdf?destPath={n}.pdf&srcStorageName=pdfs&destStorageName=pdfs"
-                    headers = {
-                        "Content-Type": "application/json",
-                        "Authorization": f"Bearer {tk}",
-                        "x-aspose-client": "Containerize.Swagger"
+            while True:
+                try:
+                    url = "https://api.aspose.cloud/connect/token"
+                    data = {
+                        "grant_type": "client_credentials",
+                        "client_id": ci[idn],
+                        "client_secret": cs[idn]
                     }
-                    response = requests.put(url, headers=headers, timeout=30)
-                    response.raise_for_status()
-                    print("Copied successful!")
+                    headers = {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "Accept": "application/json"
+                    }
+                    response = requests.post(
+                        url, data=data, headers=headers, timeout=30)
+                    token = response.json()
+                    tk = token['access_token']
 
-                    for i in range(1, 4):
-                        url = f"https://api.aspose.cloud/v3.0/pdf/{n}.pdf/pages/{i}/text"
+                    if subject == "English":
+                        url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/copy/english.pdf?destPath={n}.pdf&srcStorageName=pdfs&destStorageName=pdfs"
                         headers = {
                             "Content-Type": "application/json",
                             "Authorization": f"Bearer {tk}",
                             "x-aspose-client": "Containerize.Swagger"
                         }
-                        if i < 2:
-                            i = i-1
-
-                        response = requests.put(
-                            url, headers=headers, json=datak[i], timeout=60)
+                        response = requests.put(url, headers=headers, timeout=30)
                         response.raise_for_status()
-                        print("Request successful!")
+                        print("Copied successful!")
 
-                    break
+                        for i in range(1, 4):
+                            url = f"https://api.aspose.cloud/v3.0/pdf/{n}.pdf/pages/{i}/text"
+                            headers = {
+                                "Content-Type": "application/json",
+                                "Authorization": f"Bearer {tk}",
+                                "x-aspose-client": "Containerize.Swagger"
+                            }
+                            if i < 2:
+                                i = i-1
 
-                else:
-                    if n!="":
+                            response = requests.put(
+                                url, headers=headers, json=datak[i], timeout=60)
+                            response.raise_for_status()
+                            print("Request successful!")
+
+                        break
+
+                    else:
                         url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/copy/{subject.lower()}.pdf?destPath={n}.pdf&srcStorageName=pdfs&destStorageName=pdfs"
                         headers = {
                             "Content-Type": "application/json",
@@ -413,46 +415,53 @@ def designs(subject, name, cls, sec, pron, topic):
                             response.raise_for_status()
                             print("Request successful!")
                         break
-            except IndexError:
-                indexEr = True
-                break
-            except Exception as e:
-                print("Exception", e)
-                with open(r"cur.dat", "rb") as fp:
-                    k = pickle.load(fp)
-                    fk = open(r"cur.dat", "wb")
-                    if k["month"] == datetime.datetime.now().month:
-                        idn += 1
-                        k["idn"] = k["idn"]+1
-                        pickle.dump(k, fk)
-                    else:
-                        idn = 0
-                        k["idn"] = k["idn"]+1
-                        k["month"] = datetime.datetime.now().month
-                        pickle.dump(k, fk)
-                    fk.close()
-        if indexEr:
-            raise IndexError
+                except IndexError:
+                    indexEr = True
+                    break
+                except requests.exceptions.Timeout:
+                    w1.warning("Your session expired try again!")
+                    downpdf = False
+                    break
+                except requests.exceptions.HTTPError as e:
+                    print("Exception", e)
+                    with open(r"cur.dat", "rb") as fp:
+                        k = pickle.load(fp)
+                        fk = open(r"cur.dat", "wb")
+                        if k["month"] == datetime.datetime.now().month:
+                            idn += 1
+                            k["idn"] = k["idn"]+1
+                            pickle.dump(k, fk)
+                        else:
+                            idn = 0
+                            k["idn"] = k["idn"]+1
+                            k["month"] = datetime.datetime.now().month
+                            pickle.dump(k, fk)
+                        fk.close()
+            if indexEr:
+                raise IndexError
 
-        url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/{n}.pdf"
-        headers = {
-            "Content-Type": "accept: multipart/form-data",
-            "Authorization": f"Bearer {tk}"
-        }
-        # Add a timeout and stream the response to handle large files
-        response = requests.get(url, headers=headers, timeout=60)
-        time.sleep(2)
-        with open(f"pdfs/{n}.pdf", "wb") as file:
-            file.write(response.content)
+            if downpdf:
+                url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/{n}.pdf"
+                headers = {
+                    "Content-Type": "accept: multipart/form-data",
+                    "Authorization": f"Bearer {tk}"
+                }
+                # Add a timeout and stream the response to handle large files
+                response = requests.get(url, headers=headers, timeout=60)
+                time.sleep(2)
+                with open(f"pdfs/{n}.pdf", "wb") as file:
+                    file.write(response.content)
 
-        l1.success("All Done!")
+                l1.success("All Done!")
 
-        with open(f"pdfs/{n}.pdf", "rb") as f:
-            b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
+                with open(f"pdfs/{n}.pdf", "rb") as f:
+                    b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
 
-    except Exception as e:
-        os.write(1, f"Exception 2 {e}".encode())
-        l1.error("AN ERROR OCCURED! Please contact Sujal")
+        except Exception as e:
+            os.write(1, f"Exception 2 {e}".encode())
+            l1.error("AN ERROR OCCURED! Please contact Sujal")
+    else:
+        w1.warning("PLEASE ENTER YOUR NAME BEFORE CONTINUING")
 
 
 st.title("Certificate Generator")
@@ -494,7 +503,7 @@ if sub == "English":
 if len(inp) > 60:
     w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
     
-if c1:
+if c1 and name:
     b1.empty()
     l1.success("Processing Please Wait")
     if sub == "English":
@@ -502,3 +511,6 @@ if c1:
                 "LOST SPRING :- REFLECTION OF CHILD LABOUR IN INDIA")
     else:
         designs(sub, name, cls, sec, radio, inp)
+
+if c1 and not name:
+    w1.warning("Please enter your name before continuing!")
