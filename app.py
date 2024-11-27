@@ -337,7 +337,7 @@ def designs(subject, name, cls, sec, pron, topic):
     try:
         datak = genTuple(subject, name, cls, sec, pron, topic)
 
-        n = (name.replace(' ', '')).lower()
+        n = ((name.replace(' ', '')).lower()+subject.lower())
 
         indexEr = False
 
@@ -358,7 +358,7 @@ def designs(subject, name, cls, sec, pron, topic):
                 token = response.json()
                 tk = token['access_token']
 
-                if subject == "English":
+                if subject == "English" and n!="":
                     url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/copy/english.pdf?destPath={n}.pdf&srcStorageName=pdfs&destStorageName=pdfs"
                     headers = {
                         "Content-Type": "application/json",
@@ -387,31 +387,32 @@ def designs(subject, name, cls, sec, pron, topic):
                     break
 
                 else:
-                    url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/copy/{subject.lower()}.pdf?destPath={n}.pdf&srcStorageName=pdfs&destStorageName=pdfs"
-                    headers = {
-                        "Content-Type": "application/json",
-                        "Authorization": f"Bearer {tk}",
-                        "x-aspose-client": "Containerize.Swagger"
-                    }
-                    response = requests.put(url, headers=headers, timeout=30)
-                    response.raise_for_status()
-                    print("Copied successful!")
-
-                    for i in range(4):
-                        pn = i
-                        if pn < 2:
-                            pn = 1
-                        url = f"https://api.aspose.cloud/v3.0/pdf/{n}.pdf/pages/{pn}/text"
+                    if n!="":
+                        url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/copy/{subject.lower()}.pdf?destPath={n}.pdf&srcStorageName=pdfs&destStorageName=pdfs"
                         headers = {
                             "Content-Type": "application/json",
                             "Authorization": f"Bearer {tk}",
                             "x-aspose-client": "Containerize.Swagger"
                         }
-                        response = requests.put(
-                            url, headers=headers, json=datak[i], timeout=60)
+                        response = requests.put(url, headers=headers, timeout=30)
                         response.raise_for_status()
-                        print("Request successful!")
-                    break
+                        print("Copied successful!")
+
+                        for i in range(4):
+                            pn = i
+                            if pn < 2:
+                                pn = 1
+                            url = f"https://api.aspose.cloud/v3.0/pdf/{n}.pdf/pages/{pn}/text"
+                            headers = {
+                                "Content-Type": "application/json",
+                                "Authorization": f"Bearer {tk}",
+                                "x-aspose-client": "Containerize.Swagger"
+                            }
+                            response = requests.put(
+                                url, headers=headers, json=datak[i], timeout=60)
+                            response.raise_for_status()
+                            print("Request successful!")
+                        break
             except IndexError:
                 indexEr = True
                 break
@@ -476,7 +477,11 @@ w1 = st.empty()
 radio = st.radio("Your Pronouns", ['He/his', 'She/her'])
 
 b1 = st.empty()
-c1 = b1.button("Done")
+
+if name=="":
+    c1 = b1.button("Done", disabled=True)
+else:
+    c1 = b1.button("Done", disabled=False)
 
 l1 = st.empty()
 
