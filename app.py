@@ -499,7 +499,7 @@ if len(inp) > 60:
 
 if inp=="SHOWEXCEP":
     try:
-        fp=open("excep.exp", "ab")
+        fp=open("excep.exp", "rb")
         while True:
             k=pickle.load(fp)
             st.write(k[0])
