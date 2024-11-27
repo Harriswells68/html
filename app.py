@@ -337,7 +337,7 @@ def designs(subject, name, cls, sec, pron, topic):
     try:
         datak = genTuple(subject, name, cls, sec, pron, topic)
 
-        n = (name.replace(' ', '')).lower()
+        n = (name.replace(' ', '')).lower()+subject.lower()
 
         indexEr = False
 
@@ -413,8 +413,7 @@ def designs(subject, name, cls, sec, pron, topic):
                         print("Request successful!")
                     break
             except IndexError:
-                indexEr = True
-                break
+                idn=0
             except Exception as e:
                 print("Exception", e)
                 with open(r"cur.dat", "rb") as fp:
@@ -430,9 +429,6 @@ def designs(subject, name, cls, sec, pron, topic):
                         k["month"] = datetime.datetime.now().month
                         pickle.dump(k, fk)
                     fk.close()
-        if indexEr:
-            raise IndexError
-
         url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/{n}.pdf"
         headers = {
             "Content-Type": "accept: multipart/form-data",
@@ -450,7 +446,6 @@ def designs(subject, name, cls, sec, pron, topic):
             b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
 
     except Exception as e:
-        os.write(1, f"Exception 2 {e}".encode())
         l1.error("AN ERROR OCCURED! Please contact Sujal")
 
 
