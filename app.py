@@ -8,6 +8,10 @@ import os
 
 idn = 0
 
+ import logging
+
+logging.info("The script is running")
+
 try:
     os.mkdir("pdfs")
 except FileExistsError:
