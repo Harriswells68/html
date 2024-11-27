@@ -461,7 +461,7 @@ def designs(subject, name, cls, sec, pron, topic):
             os.write(1, f"Exception 2 {e}".encode())
             l1.error("AN ERROR OCCURED! Please contact Sujal")
     else:
-        w1.warning("PLEASE ENTER YOUR NAME BEFORE CONTINUING")
+        w1.warning("PLEASE ENTER YOUR NAME BEFORE CONTINUING!")
 
 
 st.title("Certificate Generator")
