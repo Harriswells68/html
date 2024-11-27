@@ -5,12 +5,11 @@ import pickle
 import requests
 import math
 import os
-
-idn = 0
-
- import logging
+import logging
 
 logging.info("The script is running")
+
+idn = 0
 
 try:
     os.mkdir("pdfs")
