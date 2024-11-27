@@ -339,7 +339,7 @@ def designs(subject, name, cls, sec, pron, topic):
 
         n = (name.replace(' ', '')).lower()+subject.lower()
 
-        indexEr = False
+        indexc = 0
 
         while True:
             try:
@@ -414,6 +414,10 @@ def designs(subject, name, cls, sec, pron, topic):
                     break
             except IndexError:
                 idn=0
+                indexc+=1
+                if indexc > 5:
+                    indexc = True
+                    break
             except Exception as e:
                 print("Exception", e)
                 with open(r"cur.dat", "rb") as fp:
@@ -428,7 +432,11 @@ def designs(subject, name, cls, sec, pron, topic):
                         k["idn"] = k["idn"]+1
                         k["month"] = datetime.datetime.now().month
                         pickle.dump(k, fk)
-                    fk.close()
+                    fk.close
+
+        if indexc==True:
+            raise IndexError
+        
         url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/{n}.pdf"
         headers = {
             "Content-Type": "accept: multipart/form-data",
@@ -446,6 +454,8 @@ def designs(subject, name, cls, sec, pron, topic):
             b1.download_button("Download pdf", f, f"{n}.pdf", "application/pdf")
 
     except Exception as e:
+        with open("excep.exp", "ab") as fp:
+            pickle.dump([e], fp)
         l1.error("AN ERROR OCCURED! Please contact Sujal")
 
 
@@ -483,6 +493,15 @@ if sub == "English":
 
 if len(inp) > 60:
     w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
+
+if inp=="SHOWEXCEP":
+    try:
+        fp=open("excep.exp", "ab")
+        while True:
+            k=pickle.load(fp)
+            st.write(k[0])
+    except:
+        fp.close()
     
 if c1:
     b1.empty()
