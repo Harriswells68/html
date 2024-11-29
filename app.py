@@ -26,6 +26,7 @@ def checkOverflow(name, topic=None):
     b1 = len(name) > 21
     b2 = len(topic) > 25
     b3 = len(topic) > 40
+    b4 = len(topic) > 60
 
     if len(name) > 21:
         name = name.split()
@@ -57,10 +58,10 @@ def checkOverflow(name, topic=None):
         topic = (t1, t2)
 
     if len(topic) <= 25:
-        return (name, topic, b1, b2, b3)
+        return (name, topic, b1, b2, b3, b4)
 
     elif len(topic) > 25:
-        return (name, topic, b1, b2, b3)
+        return (name, topic, b1, b2, b3, b4)
 
 
 def genTuple(subject, name, cls, sec, pron, topic):
@@ -279,6 +280,10 @@ def genTuple(subject, name, cls, sec, pron, topic):
             certconfig["Lines"][0]["Segments"][0]["Value"] = f'This is to certify that\n\n{r[0]}\n\nhas satisfactorily carried out his {subject} Project on\n\n“{topic.upper()}”\n\nThe candidate himself did all the work under my supervision. His\n\n approach towards the subject and this project is sincere.'
         if pron == "She/her" and subject=="English":
             certconfig["Lines"][0]["Segments"][0]["Value"] = f'This is to certify that\n\n{r[0]}\n\nhas satisfactorily carried out her {subject} Project on\n\n“{topic.upper()}”\n\nThe candidate herself did all the work under my supervision. Her\n\n approach towards the subject and this project is sincere.'
+        if pron == "He/his" and subject=="Physical Education":
+            certconfig["Lines"][0]["Segments"][0]["Value"] = f'This is to certify that\n\n{r[0]}\n\nhas satisfactorily carried out his {subject} Project on\n\n“{topic.upper()}”\n\nThe candidate himself did all the work under my supervision. His\n\n approach towards the subject and this project is sincere.'
+        if pron == "She/her" and subject=="Physical Education":
+            certconfig["Lines"][0]["Segments"][0]["Value"] = f'This is to certify that\n\n{r[0]}\n\nhas satisfactorily carried out her {subject} Project on\n\n“{topic.upper()}”\n\nThe candidate herself did all the work under my supervision. Her\n\n approach towards the subject and this project is sincere.'
 
 
         if r[2]:
@@ -324,6 +329,22 @@ def genTuple(subject, name, cls, sec, pron, topic):
             }
             topicconfig["Lines"][0]["Segments"][0]["TextState"]["FontSize"] = 24
 
+        if r[5] and subject!="English":
+            topicconfig["Lines"][0]["Segments"][0]["Value"] = topic.upper()
+            certconfig["Rectangle"] = {
+                "LLX": 15,
+                "LLY": 340,
+                "URX": 565,
+                "URY": 540
+            }
+            topicconfig["Rectangle"] = {
+                "LLX": 30,
+                "LLY": 245,
+                "URX": 566,
+                "URY": 370
+            }
+            topicconfig["Lines"][0]["Segments"][0]["TextState"]["FontSize"] = 24
+
         return (nameconfig, topicconfig, certconfig, acknconfig)
 
     except Exception as e:
@@ -334,12 +355,12 @@ def genTuple(subject, name, cls, sec, pron, topic):
 def designs(subject, name, cls, sec, pron, topic):
     global idn, b1, l1, w1
 
-    if name!="":
+    if name!="" and topic!="":
 
         try:
             datak = genTuple(subject, name, cls, sec, pron, topic)
 
-            n = ((name.replace(' ', '')).lower()+subject.lower())
+            n = ((name.replace(' ', '')).lower()+(subject.lower()).replace(' ', ''))
 
             indexEr = False
             downpdf = True
@@ -389,8 +410,36 @@ def designs(subject, name, cls, sec, pron, topic):
 
                         break
 
+                    elif subject == "Physical Education":
+                        url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/copy/physicaleducation.pdf?destPath={n}.pdf&srcStorageName=pdfs&destStorageName=pdfs"
+                        headers = {
+                            "Content-Type": "application/json",
+                            "Authorization": f"Bearer {tk}",
+                            "x-aspose-client": "Containerize.Swagger"
+                        }
+                        response = requests.put(url, headers=headers, timeout=30)
+                        response.raise_for_status()
+                        print("Copied successful!")
+
+                        for i in range(1, 4):
+                            url = f"https://api.aspose.cloud/v3.0/pdf/{n}.pdf/pages/{i}/text"
+                            headers = {
+                                "Content-Type": "application/json",
+                                "Authorization": f"Bearer {tk}",
+                                "x-aspose-client": "Containerize.Swagger"
+                            }
+                            if i < 2:
+                                i = i-1
+
+                            response = requests.put(
+                                url, headers=headers, json=datak[i], timeout=60)
+                            response.raise_for_status()
+                            print("Request successful!")
+
+                        break
+
                     else:
-                        url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/copy/{subject.lower()}.pdf?destPath={n}.pdf&srcStorageName=pdfs&destStorageName=pdfs"
+                        url = f"https://api.aspose.cloud/v3.0/pdf/storage/file/copy/{(subject.lower()).replace(' ', '')}.pdf?destPath={n}.pdf&srcStorageName=pdfs&destStorageName=pdfs"
                         headers = {
                             "Content-Type": "application/json",
                             "Authorization": f"Bearer {tk}",
@@ -461,7 +510,7 @@ def designs(subject, name, cls, sec, pron, topic):
             os.write(1, f"Exception 2 {e}".encode())
             l1.error("AN ERROR OCCURED! Please contact Sujal")
     else:
-        w1.warning("PLEASE ENTER YOUR NAME BEFORE CONTINUING!")
+        w1.warning("PLEASE ENTER YOUR NAME OR TOPIC BEFORE CONTINUING!")
 
 
 st.title("Certificate Generator")
@@ -474,7 +523,7 @@ name = st.text_input("Enter Your Name")
 col1, col2, col3 = st.columns(3)
 
 sub = col1.selectbox("Select the subject", [
-                     "Chemistry", "English", "Physics", "Biology"])
+                     "Chemistry", "English", "Physics", "Biology", "Physical Education"])
 cls = col2.selectbox("Select the class", ["IX", "X", "XI", "XII"])
 sec = col3.selectbox("Select the section", ["A", "B", "C", "D"])
 
@@ -489,6 +538,8 @@ b1 = st.empty()
 
 if name=="":
     c1 = b1.button("Done", disabled=True)
+elif (name=="" or inp=="") and sub!="English":
+    c1 = b1.button("Done", disabled=True)
 else:
     c1 = b1.button("Done", disabled=False)
 
@@ -496,21 +547,32 @@ l1 = st.empty()
 
 st.caption('If you got any errors please contact me:)')
 
-if sub == "English":
+if sub == "English" or sub == "Physical Education":
     topic.empty()
     #w1.warning("The English pdf will be available after 5pm today because of some ongoing change")
 
-if len(inp) > 60:
+if len(inp) > 80:
     w1.warning("Your topic is way too big!😢 Please make it shorter else there will be layout problems")
     
-if c1 and name:
+if c1 and name and sub=="English":
     b1.empty()
     l1.success("Processing Please Wait")
-    if sub == "English":
-        designs(sub, name, cls, sec, radio,
-                "LOST SPRING :- REFLECTION OF CHILD LABOUR IN INDIA")
-    else:
-        designs(sub, name, cls, sec, radio, inp)
+    designs(sub, name, cls, sec, radio,
+            "LOST SPRING :- REFLECTION OF CHILD LABOUR IN INDIA")
+
+if c1 and name and sub=="Physical Education":
+    b1.empty()
+    l1.success("Processing Please Wait")
+    designs(sub, name, cls, sec, radio,
+            "PHYSICAL FITNESS, YOGAIC PRACTICE AND PROFICIENCY IN GAMES")
+
+if c1 and name and inp and sub!="English" and sub!="Physical Education":
+    b1.empty()
+    l1.success("Processing Please Wait")
+    designs(sub, name, cls, sec, radio, inp)
 
 if c1 and not name:
     w1.warning("Please enter your name before continuing!")
+
+if  c1 and not inp and sub!="English" and sub!="Physical Education":
+    w1.warning("Please enter your topic before continuing!")
